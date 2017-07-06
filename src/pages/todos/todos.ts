@@ -51,4 +51,8 @@ setTodoStyles(item:TodoModel){
     todo.isDone = ! todo.isDone
   }
 
+   showAddTodo(){
+    console.log("Hiii!!");
+  }
+
 }
