@@ -43,6 +43,12 @@ setTodoStyles(item:TodoModel){
   };
 
   return styles;
+
+
 }
+
+  toggleTodo(todo:TodoModel){
+    todo.isDone = ! todo.isDone
+  }
 
 }
