@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import {TodoModel} from '../../shared/todo-model';
+import { TodoModel } from '../../shared/todo-model';
 
 /**
  * Generated class for the TodosPage page.
@@ -34,5 +34,15 @@ export class TodosPage {
       new TodoModel("this is an element"),      
     ]
   }
+
+setTodoStyles(item:TodoModel){
+
+  let styles = {
+    'text-decoration': item.isDone ? 'line-through' : 'none',
+    'font-weight': item.isImportant ? '600' : 'normal'
+  };
+
+  return styles;
+}
 
 }
