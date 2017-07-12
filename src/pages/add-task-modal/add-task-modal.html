@@ -19,7 +19,7 @@
 
 <ion-content >
 
-    <ion-list no-lines>
+    <ion-list no-lines class="container">
       <ion-item>
             <ion-input placeholder="Task Description" clearInput
             [(ngModel)]="model.description">
@@ -33,7 +33,7 @@
 
       </ion-item>
 
-      <div>
+      <div class="submit-button">
         <button ion-button block (click)="submit()">Add</button>
       </div>
 
