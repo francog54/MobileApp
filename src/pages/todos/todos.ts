@@ -51,9 +51,19 @@ setTodoStyles(item:TodoModel){
     todo.isDone = ! todo.isDone
   }
 
+  addTodo(todo:TodoModel){
+    this.todos.push(todo);
+  }
+
    showAddTodo(){
     let modal = this.modalCtrl.create(AddTaskModalPage);
     modal.present();
+
+    modal.onDidDismiss(data => {
+      if(data){
+        this.addTodo(data);
+      }
+    });
   }
 
 }
