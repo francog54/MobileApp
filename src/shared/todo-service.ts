@@ -41,4 +41,12 @@ export class TodoServiceProvider {
     this.todos.push(todo);
   }
 
+  removeTodo(todo:TodoModel){
+    const index = this.todos.indexOf(todo);
+    this.todos = [
+      ...this.todos.slice(0,index),
+      ...this.todos.slice(index+1)
+    ]
+  }
+
 }

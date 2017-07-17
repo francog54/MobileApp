@@ -45,6 +45,9 @@ toggleTodo(todo:TodoModel){
     this.TodoServiceProvider.toggleTodo(todo);
 }
 
+removeTodo(todo:TodoModel){
+  this.TodoServiceProvider.removeTodo(todo);
+}
 
 showAddTodo(){
     let modal = this.modalCtrl.create(AddTaskModalPage);
