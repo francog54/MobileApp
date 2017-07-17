@@ -6,6 +6,8 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { MyApp } from './app.component';
 import { TodosPage } from '../pages/todos/todos';
 import { AddTaskModalPage } from '../pages/add-task-modal/add-task-modal';
+import { HttpModule } from '@angular/http';
+import { TodoServiceProvider } from '../shared/todo-service';
 
 @NgModule({
   declarations: [
@@ -15,6 +17,7 @@ import { AddTaskModalPage } from '../pages/add-task-modal/add-task-modal';
   ],
   imports: [
     BrowserModule,
+    HttpModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
@@ -26,7 +29,8 @@ import { AddTaskModalPage } from '../pages/add-task-modal/add-task-modal';
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    TodoServiceProvider
   ]
 })
 export class AppModule {}
