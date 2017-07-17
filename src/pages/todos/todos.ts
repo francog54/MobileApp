@@ -60,4 +60,14 @@ showAddTodo(){
     });
 }
 
+showEditTodo(todo:TodoModel){
+  let modal = this.modalCtrl.create(AddTaskModalPage,{todo});
+  modal.present();
+
+  modal.onDidDismiss(data=>{
+    //update todo
+  })
+
+}
+
 }

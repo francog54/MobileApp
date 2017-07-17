@@ -17,6 +17,9 @@ export class AddTaskModalPage {
   public model = new TodoModel('');
 
   constructor(public viewCtrl: ViewController, public navParams: NavParams) {
+    if(this.navParams.get('todo')){
+      this.model = this.navParams.get('todo');
+    }
   }
 
   ionViewDidLoad() {
