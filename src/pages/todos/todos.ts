@@ -65,8 +65,10 @@ showEditTodo(todo:TodoModel){
   modal.present();
 
   modal.onDidDismiss(data=>{
-    //update todo
-  })
+    if(data){
+      this.TodoServiceProvider.updateTodo(todo,data);
+    }
+  });
 
 }
 

@@ -33,6 +33,7 @@ export class TodoServiceProvider {
     ]
   }
 
+
     toggleTodo(todo:TodoModel){
     todo.isDone = ! todo.isDone
   }
@@ -45,6 +46,15 @@ export class TodoServiceProvider {
     const index = this.todos.indexOf(todo);
     this.todos = [
       ...this.todos.slice(0,index),
+      ...this.todos.slice(index+1)
+    ]
+  }
+
+  updateTodo(originalTodo:TodoModel,modifiedTodo:TodoModel){
+    const index = this.todos.indexOf(originalTodo);
+    this.todos = [
+      ...this.todos.slice(0,index),
+      modifiedTodo,
       ...this.todos.slice(index+1)
     ]
   }
