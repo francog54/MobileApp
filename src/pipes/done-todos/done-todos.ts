@@ -9,7 +9,6 @@ import { TodoModel } from '../../shared/todo-model';
  */
 @Pipe({
   name: 'doneTodosPipe',
-  pure:false
 })
 export class DoneTodosPipe implements PipeTransform {
   /**
