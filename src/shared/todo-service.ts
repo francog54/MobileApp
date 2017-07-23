@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
-import { Platform } from 'ionic-angular';
 import { TodoModel} from './todo-model';
 
 /*
@@ -15,7 +14,7 @@ export class TodoServiceProvider {
   private todos: TodoModel[];
 
 
-  constructor(public http: Http,private Platform:Platform) {
+  constructor(public http: Http) {
     this.getTodos();
   }
 
@@ -46,8 +45,8 @@ export class TodoServiceProvider {
           updatedTodo,
           ...this.todos.slice(todoIndex+1)
         ];
-    },this.Platform.is('ios') ? 0 : 300);
-   
+    }
+    )
   }
 
   addTodo(todo:TodoModel){

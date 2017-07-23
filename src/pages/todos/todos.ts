@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams,ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams,ModalController,Platform } from 'ionic-angular';
 import { TodoModel } from '../../shared/todo-model';
 import { TodoServiceProvider } from '../../shared/todo-service';
 import { AddTaskModalPage  } from '../add-task-modal/add-task-modal';
@@ -16,12 +16,14 @@ import { AddTaskModalPage  } from '../add-task-modal/add-task-modal';
 })
 export class TodosPage {
 
-  
+  private toogleTodoTimeout = null;
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     public modalCtrl:ModalController,
-    public TodoServiceProvider:TodoServiceProvider
+    public TodoServiceProvider:TodoServiceProvider,
+    private Platform:Platform
   ) {
   }
 
@@ -42,7 +44,14 @@ setTodoStyles(item:TodoModel){
 }
 
 toggleTodo(todo:TodoModel){
-    this.TodoServiceProvider.toggleTodo(todo);
+  if(this.toogleTodoTimeout)
+    return;
+  setTimeout(()=>{
+     this.TodoServiceProvider.toggleTodo(todo);
+     this.toogleTodoTimeout = null;
+  } ,this.Platform.is('ios') ? 0 : 300);
+    
+    
 }
 
 removeTodo(todo:TodoModel){

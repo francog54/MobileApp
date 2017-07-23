@@ -5,6 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { MyApp } from './app.component';
 import { TodosPage } from '../pages/todos/todos';
+import { ListsPage } from '../pages/lists/lists';
 import { AddTaskModalPage } from '../pages/add-task-modal/add-task-modal';
 import { HttpModule } from '@angular/http';
 import { TodoServiceProvider } from '../shared/todo-service';
@@ -16,6 +17,7 @@ import { DoneTodosPipe } from '../pipes/done-todos/done-todos';
   declarations: [
     MyApp,
     TodosPage,
+    ListsPage,
     AddTaskModalPage,
     PrioritizedTodosPipe,
     DoneTodosPipe,
@@ -30,6 +32,7 @@ import { DoneTodosPipe } from '../pipes/done-todos/done-todos';
   entryComponents: [
     MyApp,
     TodosPage,
+    ListsPage,
     AddTaskModalPage
   ],
   providers: [
