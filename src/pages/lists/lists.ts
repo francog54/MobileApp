@@ -30,7 +30,9 @@ export class ListsPage {
   }
 
   addNewList(name:string){
-    this.ListServiceProvider.addList(name);
+    let list = this.ListServiceProvider.addList(name);
+    this.ListServiceProvider.saveLocallly();
+    this.goToList(list);
   }
 
   showAddList(){
