@@ -20,9 +20,9 @@ export class TodoServiceProvider {
   public loadFromList(id:number){
     if (id < 3){
           this.todos = [  
-      new TodoModel("this is an element",true),
-      new TodoModel("this is an element"),
-      new TodoModel("this is an element",false,true),    
+      new TodoModel("Esto es un elemento",true),
+      new TodoModel("Esto es un elemento"),
+      new TodoModel("Esto es un elemento",false,true),    
     ];
     }else{
       this.todos = [];

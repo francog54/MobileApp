@@ -37,8 +37,8 @@ export class ListsPage {
 
   showAddList(){
     let addListAlert = this.AlertController.create({
-      title: 'New list',
-      message: 'Give a name to the new list',
+      title: 'Nueva Lista',
+      message: 'Ponle un nombre a tu nueva lista',
       inputs: [
         {
           name: 'name',
@@ -47,11 +47,11 @@ export class ListsPage {
       ],
       buttons:[
         {
-          text: 'Cancel',
+          text: 'Cancelar',
           handler: data=>{}
         },
         {
-          text: 'Add',
+          text: 'Agregar',
           handler: data=>{ this.addNewList(data.name); }
         }
       ]

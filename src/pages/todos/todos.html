@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar color="primary">
-    <ion-title>To Do List</ion-title>
+    <ion-title>Tareas Por Hacer</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -31,17 +31,17 @@
     <ion-item-options  side="right">
        <button ion-button color="dark" (click)="showEditTodo(todo)">
          <ion-icon name="create"></ion-icon>
-         Edit
+         Editar
         </button>
       <button ion-button color="danger" (click)="removeTodo(todo)">
          <ion-icon name="remove-circle"></ion-icon>
-        Remove
+        Eliminar
       </button>
     </ion-item-options > 
      
     </ion-item-sliding>
     <ion-item-divider *ngIf="(TodoServiceProvider.todos | doneTodosPipe).length > 0">
-       Done tasks
+       Tareas Hechas
     </ion-item-divider>
     <ion-item *ngFor="let todo of TodoServiceProvider.todos | doneTodosPipe " [ngStyle]="setTodoStyles(todo)">
           <ion-label color="light"> {{todo.description}}</ion-label> 
