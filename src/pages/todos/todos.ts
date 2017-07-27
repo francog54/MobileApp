@@ -35,6 +35,10 @@ export class TodosPage {
 
   }
 
+  ionViewWillUnload(){
+    this.TodoServiceProvider.saveLocally(this.list.id);
+  }
+
 setTodoStyles(item:TodoModel){
 
   let styles = {
