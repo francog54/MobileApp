@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import { Storage } from '@ionic/storage';
+import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
+import  'rxjs/add/operator/share';
 import { ListModel } from './list-model';
 import { AppSettings } from './app-settings';
 
@@ -32,9 +34,17 @@ export class ListServiceProvider {
   }
 
   public addList(name:string){
-    let list = new ListModel(name,this.lists.length);
-    this.lists = [...this.lists, list];
-    return list;
+    let Observable = this.postNewListToServer(name);
+
+    Observable.subscribe(
+      (list:ListModel)=>{
+        this.lists = [...this.lists, list];
+        this.saveLocallly();
+      },
+      error => console.log ("Error trying to post a new list to the server")
+    );
+
+    return Observable;
   }
 
   public getFromLocal() {
@@ -70,9 +80,20 @@ export class ListServiceProvider {
         )
   }
 
+  private postNewListToServer(name): Observable<ListModel>{
+    let Observable = this.http.post(`${AppSettings.API_ENDPOINT}/lists`,{name})
+                    .share()
+                    .map(response => response.json())
+                    .map(list => ListModel.fromJson(list));
+
+    Observable.subscribe(()=>{},()=>{});               
+
+    return Observable;
+  }
+
   public saveLocallly(){
     this.local.ready().then (()=>{
-      this.local.set('lists',this.lists);
+      this.local.set('lists', JSON.stringify(this.lists));
     }
 
     )
