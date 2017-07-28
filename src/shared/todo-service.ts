@@ -23,8 +23,8 @@ export class TodoServiceProvider {
   }
 
   private getFromLocal(id:number){
-    this.local.ready().then(()=>{
-      this.local.get(`list/${id}`).then(
+    return this.local.ready().then(()=>{
+      return this.local.get(`list/${id}`).then(
         data => {
           if(!data){
             this.todos = [];
