@@ -15,9 +15,16 @@ page-lists {
                 border: none !important;
             }
 
-            .input-writer{
+            .input-wrapper{
                 text-align: center;
             }
+
+            &.selected-list{
+                background-color: #DDD;
+                box-shadow: 0 3px 15px rgba(0,0,0,0.6) !important;
+                transition: background-color 0.3s ease-out;
+            }
+
         }
     }
 
