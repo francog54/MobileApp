@@ -88,7 +88,7 @@ export class ListsPage {
   }
 
   removeSelectedList(){
-    console.log("Esta lista deberia ser eliminada");
+    this.ListServiceProvider.removeList(this.selectedList);
     this.selectedList = null;
   }
 
