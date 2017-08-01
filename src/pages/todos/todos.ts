@@ -67,7 +67,7 @@ removeTodo(todo:TodoModel){
 }
 
 showAddTodo(){
-    let modal = this.modalCtrl.create(AddTaskModalPage);
+    let modal = this.modalCtrl.create(AddTaskModalPage,{listId: this.list.id});
     modal.present();
 
     modal.onDidDismiss(data => {

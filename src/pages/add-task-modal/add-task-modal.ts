@@ -14,7 +14,7 @@ import { TodoModel } from '../../shared/todo-model';
   templateUrl: 'add-task-modal.html',
 })
 export class AddTaskModalPage {
-  public model = new TodoModel('');
+  public model:TodoModel;
   public title:string = "Agregar nueva tarea";
   public buttonText:string = "Agregar";
 
@@ -23,6 +23,9 @@ export class AddTaskModalPage {
       this.model = TodoModel.clone(this.navParams.get('todo'));
       this.title = "Editar tarea";
       this.buttonText = "Guardar Cambios";
+    }else{
+      let listId = this.navParams.get('listId');
+      this.model = new TodoModel('',listId);
     }
   }
 
