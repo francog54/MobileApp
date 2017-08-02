@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams,ModalController,Platform } from 'ionic-angular';
+import { IonicPage, NavController, NavParams,ModalController,Platform, LoadingController } from 'ionic-angular';
 import { TodoModel } from '../../shared/todo-model';
 import { ListModel } from '../../shared/list-model';
 import { TodoServiceProvider } from '../../shared/todo-service';
 import { AddTaskModalPage  } from '../add-task-modal/add-task-modal';
+
 /**
  * Generated class for the TodosPage page.
  *
@@ -25,7 +26,8 @@ export class TodosPage {
     public navParams: NavParams,
     public modalCtrl:ModalController,
     public TodoServiceProvider:TodoServiceProvider,
-    private Platform:Platform
+    private Platform:Platform,
+    private loadingCtrl:LoadingController
   ) {
     this.list = this.navParams.get('list');
     this.TodoServiceProvider.loadFromList(this.list.id);
@@ -66,13 +68,20 @@ removeTodo(todo:TodoModel){
   this.TodoServiceProvider.removeTodo(todo);
 }
 
+addTodo(todo:TodoModel){
+  let loader = this.loadingCtrl.create();
+  loader.present();
+  this.TodoServiceProvider.addTodo(todo)
+  .subscribe(()=> loader.dismiss(),()=>loader.dismiss());
+}
+
 showAddTodo(){
     let modal = this.modalCtrl.create(AddTaskModalPage,{listId: this.list.id});
     modal.present();
 
     modal.onDidDismiss(data => {
       if(data){
-        this.TodoServiceProvider.addTodo(data);
+        this.addTodo(data);
       }
     });
 }
