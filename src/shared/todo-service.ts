@@ -97,6 +97,14 @@ export class TodoServiceProvider {
     return Observable;
   }
 
+  private deleteTodoFromServer(id:number){
+    let observable = this.http.delete(`${AppSettings.API_ENDPOINT}/todos/${id}`)
+      .map(response => response.json()).share();
+
+      return observable;
+
+  }
+
 
   public saveLocally(id:number){
     this.local.ready().then(()=>{
@@ -112,7 +120,10 @@ export class TodoServiceProvider {
       let updatedTodo = TodoModel.clone(todo);
       updatedTodo.isDone = !todo.isDone;
 
-      return this.updateTodo(todo,updatedTodo);
+      return this.updateTodo(todo,updatedTodo).subscribe(
+        ()=>{},
+        ()=>{this.loadFromList(todo.listId)}
+      )
     }
  
 
@@ -132,11 +143,17 @@ export class TodoServiceProvider {
   }
 
   removeTodo(todo:TodoModel){
-    const index = this.todos.indexOf(todo);
-    this.todos = [
-      ...this.todos.slice(0,index),
-      ...this.todos.slice(index+1)
-    ]
+    this.deleteTodoFromServer(todo.id).subscribe(
+      ()=>{
+          const index = this.todos.indexOf(todo);
+          this.todos = [
+          ...this.todos.slice(0,index),
+          ...this.todos.slice(index+1)
+          ];
+          this.saveLocally(todo.listId);
+      },
+      error => console.log("An error ocurred while trying to remove the todo", todo)
+    );
   }
 
   updateTodo(originalTodo:TodoModel,modifiedTodo:TodoModel):Observable<TodoModel>{
