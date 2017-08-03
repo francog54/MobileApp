@@ -81,6 +81,23 @@ export class TodoServiceProvider {
     return Observable;
   }
 
+
+    private updateTodoInServer(todo:TodoModel): Observable<TodoModel>{
+    let Observable = this.http.put(`${AppSettings.API_ENDPOINT}/todos/${todo.id}`,
+  {
+    description: todo.description,
+    isImportant: todo.isImportant,
+    isDone: todo.isDone,
+    listId: todo.listId
+  })
+    .map(response => response.json())
+    .map(todo => TodoModel.fromJson(todo))
+    .share();
+
+    return Observable;
+  }
+
+
   public saveLocally(id:number){
     this.local.ready().then(()=>{
       this.local.set(`list/${id}`,this.todos)
@@ -92,20 +109,12 @@ export class TodoServiceProvider {
   
 
     toggleTodo(todo:TodoModel){
-    setTimeout(()=>{
-        
-        const todoIndex = this.todos.indexOf(todo);
-        let updatedTodo = TodoModel.clone(todo);
-        updatedTodo.isDone = !todo.isDone;
+      let updatedTodo = TodoModel.clone(todo);
+      updatedTodo.isDone = !todo.isDone;
 
-        this.todos = [
-          ...this.todos.slice(0,todoIndex),
-          updatedTodo,
-          ...this.todos.slice(todoIndex+1)
-        ];
+      return this.updateTodo(todo,updatedTodo);
     }
-    )
-  }
+ 
 
   addTodo(todo:TodoModel){
     let observable = this.postNewTodoToServer(todo);
@@ -130,13 +139,21 @@ export class TodoServiceProvider {
     ]
   }
 
-  updateTodo(originalTodo:TodoModel,modifiedTodo:TodoModel){
+  updateTodo(originalTodo:TodoModel,modifiedTodo:TodoModel):Observable<TodoModel>{
+    let observable = this.updateTodoInServer(modifiedTodo);
+
+    observable.subscribe((todo:TodoModel)=>{
     const index = this.todos.indexOf(originalTodo);
     this.todos = [
       ...this.todos.slice(0,index),
-      modifiedTodo,
-      ...this.todos.slice(index+1)
-    ]
+      todo,
+      ...this.todos.slice(index+1)];
+   
+    },
+    error => console.log("Error trying to update todo item")
+  );
+
+    return observable;
   }
 
 }

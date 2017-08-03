@@ -75,6 +75,14 @@ addTodo(todo:TodoModel){
   .subscribe(()=> loader.dismiss(),()=>loader.dismiss());
 }
 
+updateTodo(originalTodo:TodoModel, modifiedTodo:TodoModel){
+  let loader = this.loadingCtrl.create();
+  loader.present();
+
+  this.TodoServiceProvider.updateTodo(originalTodo,modifiedTodo)
+  .subscribe(()=>loader.dismiss(),()=>loader.dismiss());
+}
+
 showAddTodo(){
     let modal = this.modalCtrl.create(AddTaskModalPage,{listId: this.list.id});
     modal.present();
@@ -86,13 +94,15 @@ showAddTodo(){
     });
 }
 
+
+
 showEditTodo(todo:TodoModel){
   let modal = this.modalCtrl.create(AddTaskModalPage,{todo});
   modal.present();
 
   modal.onDidDismiss(data=>{
     if(data){
-      this.TodoServiceProvider.updateTodo(todo,data);
+      this.updateTodo(todo,data);
     }
   });
 
